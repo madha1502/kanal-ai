@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upside Down</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    height:100%;
+    background: url('bg.png') center/cover no-repeat fixed;
+}
+
+body{
+    margin:0;
+    height:100%;
+    overflow:hidden;
+    background: transparent;
+    font-family:'Creepster', cursive;
+}
+
+canvas{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background: transparent;
+}
+.line{
+    height:2px;
+    width:1250px;
+    background:#ff1a1a;
+    margin:8px auto;
+    box-shadow:0 0 8px rgb(214, 88, 88);
+}
+.center-logo{
+    width:550px;
+    filter: drop-shadow(0 0 30px #0e0f0f);
+}
+/* title */
+.title{
+    font-family: 'ITC Benguiat', serif;
+    outline-color: rgb(250, 0, 93);
+    font-size: 40px;
+    letter-spacing: 6px;
+    color: #0b0101;
+    text-shadow:
+        0 0 8px #090909,
+        0 0 25px #060606,
+        0 0 40px #0b0b0b;
+    position: absolute;
+    top: 6%;
+    left: 10%;
+    width: 80%;
+    text-align: center;
+    -webkit-text-stroke: 1px #ff1a1a;
+}
+.login-btn{
+    position:fixed;
+    top:450px;
+    right:525px;
+    padding:10px 22px;
+    border:2px solid #0b1314;
+    color:#ff0000;
+    text-decoration:none;
+    font-weight:600;
+    letter-spacing:1px;
+    border-radius:6px;
+    z-index:10;
+    transition:0.3s;
+    box-shadow:0 0 10px #abacac;
+    filter: drop-shadow(0 0 10px #ac232e);
+    text-shadow:
+        0 0 8px #090909,
+        0 0 25px #060606,
+        0 0 40px #0b0b0b;
+    animation: floatLogo 4s ease-in-out infinite;
+}
+.login-btn:hover{
+    background:#560101;
+    color:#4f030a;
+    box-shadow:0 0 25px #060606;
+}
+
+.contnt{
+    position:absolute;
+    top:25%;
+    width:100%;
+    text-align:center;
+    color:rgb(203, 19, 19);
+    letter-spacing:8px;
+    font-weight:200;
+    font-size:3rem;
+    text-shadow:0 0 40px rgba(128, 9, 9, 0.8);
+    animation: fadein 4s ease forwards;
+    opacity:0;
+}
+@keyframes fadein{
+    to{ opacity:1; }
+}
+
+/* Responsive */
+@media(max-width:768px){
+    .content{
+        font-size:1rem;
+        letter-spacing:4px;
+    }
+}
+
+.tagline{
+    position:fixed;
+    bottom:40px;
+    width:100%;
+    text-align:center;
+    color:#dfc7da;
+    letter-spacing:4px;
+    text-shadow:0 0 15px #070707;
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="login.html" class="login-btn">PROCEED TO HAWKINS</a>
+
+<canvas id="particles"></canvas>
+<div class="logo">
+    <div class="line"></div>
+    <div class="title">DEPARTMENT OF ARTIFICIAL INTELLIGENCE AND DATA SCIENCE</div>
+    <div class="line"></div>
+</div>
+<div class="contnt">
+    <img src="logo.png" class="center-logo" alt="Kanal Logo">
+</div>
+<div class="tagline">"Where Code Meets Creativity and Intelligence Meets Design"</div>
+<script>
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+class Particle{
+    constructor(){
+        this.x = Math.random()*canvas.width;
+        this.y = Math.random()*canvas.height;
+        this.size = Math.random()*2+1;
+        this.speed = Math.random()*0.4+0.2;
+        this.opacity = Math.random();
+    }
+    update(){
+        this.y -= this.speed;
+        if(this.y < 0){
+            this.y = canvas.height;
+            this.x = Math.random()*canvas.width;
+        }
+    }
+    draw(){
+        ctx.fillStyle = `rgba(255,40,40,${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+        ctx.fill();
+    }
+}
+
+function init(){
+    for(let i=0;i<350;i++){
+        particles.push(new Particle());
+    }
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+window.addEventListener('resize', ()=>{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>

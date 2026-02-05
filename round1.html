@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demogorgan</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    height:100%;
+    background: url('bg2.png') center/cover no-repeat fixed;
+}
+
+body{
+    margin:0;
+    height:100%;
+    overflow:hidden;
+    background: transparent;
+    font-family:'Creepster', cursive;
+}
+
+canvas{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background: transparent;
+}
+.line{
+    height:2px;
+    width:500px;
+    background:#ff1a1a;
+    margin:8px auto;
+    box-shadow:0 0 8px rgb(38, 15, 15);
+}
+.center-logo{
+    width:550px;
+    filter: drop-shadow(0 0 30px #0e0f0f);
+}
+/* title */
+.title{
+    font-family: 'ITC Benguiat', serif;
+    outline-color: rgb(250, 0, 93);
+    font-size: 40px;
+    letter-spacing: 6px;
+    color: #0b0101;
+    text-shadow:
+        0 0 8px #090909,
+        0 0 25px #060606,
+        0 0 40px #0b0b0b;
+    position: absolute;
+    top: 6%;
+    left: 10%;
+    width: 80%;
+    text-align: center;
+    -webkit-text-stroke: 1px #ff1a1a;
+}
+.login-btn{
+    position:fixed;
+    top:450px;
+    right:525px;
+    padding:10px 22px;
+    border:2px solid #0b1314;
+    color:#ff0000;
+    text-decoration:none;
+    font-weight:600;
+    letter-spacing:1px;
+    border-radius:6px;
+    z-index:10;
+    transition:0.3s;
+    box-shadow:0 0 10px #abacac;
+    filter: drop-shadow(0 0 10px #ac232e);
+    text-shadow:
+        0 0 8px #090909,
+        0 0 25px #060606,
+        0 0 40px #0b0b0b;
+    animation: floatLogo 4s ease-in-out infinite;
+}
+.login-btn:hover{
+    background:#560101;
+    color:#7d0713;
+    box-shadow:0 0 25px #5e0505;
+}
+
+.contnt{
+    position:absolute;
+    top:25%;
+    width:100%;
+    text-align:center;
+    color:rgb(203, 19, 19);
+    letter-spacing:8px;
+    font-weight:200;
+    font-size:3rem;
+    text-shadow:0 0 40px rgba(128, 9, 9, 0.8);
+    animation: fadein 4s ease forwards;
+    opacity:0;
+}
+@keyframes fadein{
+    to{ opacity:1; }
+}
+
+/* Responsive */
+@media(max-width:768px){
+    .content{
+        font-size:1rem;
+        letter-spacing:4px;
+    }
+}
+
+.tagline{
+    position:fixed;
+    bottom:470px;
+    width:100%;
+    text-align:center;
+    color:#dfc7da;
+    font-size: 30px;
+    letter-spacing:4px;
+    text-shadow:0 0 15px #070707;
+}
+
+/* ===== PROMPT BOX ===== */
+.prompt-box{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:60%;
+    max-width:800px;
+    text-align:center;
+    z-index:5;
+}
+
+.prompt-label{
+    display:block;
+    margin-bottom:18px;
+    font-size:28px;
+    letter-spacing:6px;
+    color:transparent;
+    -webkit-text-stroke:3px #ff1a1a;
+    text-shadow:
+        0 0 8px #090909,
+        0 0 25px #060606,
+        0 0 40px #0b0b0b;
+}
+
+.prompt-box textarea{
+    width:100%;
+    height:120px;
+    border-radius:40px;
+    padding:25px;
+    font-size:18px;
+    border:2px solid red;
+    background:rgba(0,0,0,0.75);
+    color:white;
+    outline:none;
+    resize:none;
+    box-shadow:0 0 30px rgb(45, 7, 7);
+    transition:0.3s;
+}
+
+.prompt-box textarea:focus{
+    box-shadow:0 0 50px red;
+}
+
+#result{
+    position:absolute;
+    bottom:40px;
+    width:100%;
+    text-align:center;
+    z-index:20;
+}
+
+#result img{
+    width:380px;
+    border-radius:20px;
+    box-shadow:0 0 40px red;
+}
+
+/* Overlay */
+.popup-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  z-index:9999;
+}
+
+/* BLAST BACKGROUND */
+.blast-bg{
+  position:absolute;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgb(101, 7, 7), transparent 60%);
+  animation:blast 1s ease-out forwards;
+  z-index:1;
+}
+
+/* Popup */
+.popup-box{
+  position:relative;
+  z-index:2;
+  width:420px;
+  padding:30px;
+  text-align:center;
+  background:#0d0d0d;
+  color:rgb(138, 5, 5);
+  border-radius:15px;
+  box-shadow:0 0 40px rgb(205, 8, 31);
+  animation:zoomIn 0.5s ease forwards;
+}
+
+.popup-image{
+  width:120px;
+  margin-bottom:15px;
+}
+
+.popup-box button{
+  margin-top:15px;
+  padding:10px 25px;
+  border:none;
+  box-shadow:0 0 40px rgb(205, 8, 31);
+  background:rgb(95, 13, 24);
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* Blast animation */
+@keyframes blast{
+  0%{transform:scale(0.2);opacity:1;}
+  80%{transform:scale(3);opacity:0.6;}
+  100%{transform:scale(5);opacity:0;}
+}
+
+/* Popup zoom */
+@keyframes zoomIn{
+  from{transform:scale(0);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+/* Confetti pieces */
+.confetti{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:rgb(135, 7, 7);
+  animation:fall 2s linear forwards;
+}
+
+@keyframes fall{
+  from{transform:translateY(-100px) rotate(0deg);}
+  to{transform:translateY(600px) rotate(720deg);opacity:0;}
+}
+
+.college-logo{
+        width:200px;
+    position:fixed;
+    bottom:35px;
+    right:10px;
+    width:110vw;
+    max-width:250px;
+    z-index:5;
+    filter: drop-shadow(0 0 10px #651d22);
+    animation: zigzag1 7s ease-in infinite;
+}
+.college-logo1{
+        width:200px;
+    position:fixed;
+    bottom:35px;
+    left:10px;
+    width:110vw;
+    max-width:250px;
+    z-index:5;
+    filter: drop-shadow(0 0 10px #9a262d);
+    animation: zigzag1 7s ease-in infinite;
+}
+</style>
+</head>
+
+<body>
+
+<a href="#" class="login-btn" onclick="revealTruth()">REVEAL THE TRUTH</a>
+<img src="c1.png" class="college-logo1" alt="VSBEC Logo">
+<img src="c2.png" class="college-logo" alt="VSBEC Logo">
+<canvas id="particles"></canvas>
+<div class="logo">
+    <div class="line"></div>
+    <div class="title">ROUND 1</div>
+    <div class="line"></div>
+</div>
+<div class="logo1">
+    <div class="tagline">THEME : STRANGER THINGS</div>
+    <div class="title"></div>
+    <div class="tagline"></div>
+</div>
+<div class="prompt-box">
+    <label class="prompt-label">TYPE YOUR PROMPT</label>
+    <textarea placeholder="Save Hawkins From Danger..."></textarea>
+</div>
+<div id="result"></div>
+
+<div id="resultPopup" class="popup-overlay">
+  <div class="blast-bg"></div>
+
+<div class="popup-box">
+    <h2 id="winnerName">Unlocked</h2> <br>
+  <h2 id="winnerName">DUSTIN , STEVE HARINGTON</h2>
+  <p>The gate is opening...</p>
+  <button onclick="closePopup()">Enter Upside Down</button>
+</div>
+
+</div>
+
+<script>
+async function generateImage(){
+    const prompt = document.querySelector("textarea").value;
+    const result = document.getElementById("result");
+
+    if(!prompt){
+        result.innerHTML = "Type a prompt first...";
+        return;
+    }
+
+    result.innerHTML = "Summoning from the Upside Down...";
+
+    try{
+        const res = await fetch("http://localhost:3000/generate", {
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({prompt})
+        });
+
+        const data = await res.json();
+        result.innerHTML = `<img src="${data.image}" />`;
+        /*showPopup();*/
+    }
+    catch(e){
+        result.innerHTML = "Connection to portal failed...";
+    }
+}
+
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+class Particle{
+    constructor(){
+        this.x = Math.random()*canvas.width;
+        this.y = Math.random()*canvas.height;
+        this.size = Math.random()*2+1;
+        this.speed = Math.random()*0.4+0.2;
+        this.opacity = Math.random();
+    }
+    update(){
+        this.y -= this.speed;
+        if(this.y < 0){
+            this.y = canvas.height;
+            this.x = Math.random()*canvas.width;
+        }
+    }
+    draw(){
+        ctx.fillStyle = `rgba(255,40,40,${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+        ctx.fill();
+    }
+}
+
+function init(){
+    for(let i=0;i<350;i++){
+        particles.push(new Particle());
+    }
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+window.addEventListener('resize', ()=>{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+function showPopup(){
+  const popup = document.getElementById("resultPopup");
+  popup.style.display = "flex"; 
+
+  // restart blast animation every time
+  const blast = popup.querySelector(".blast-bg");
+  blast.style.animation = "none";
+  void blast.offsetWidth; 
+  blast.style.animation = "blast 1s ease-out forwards";
+
+  popup.style.display = "flex";
+
+  // confetti
+  for(let i=0;i<80;i++){
+    let conf = document.createElement("div");
+    conf.className = "confetti";
+    conf.style.left = Math.random()*100 + "vw";
+    conf.style.top = "-20px";
+    conf.style.background = `hsl(${Math.random()*360},100%,50%)`;
+    conf.style.animationDuration = (Math.random()*2+1)+"s";
+    popup.appendChild(conf);
+
+    setTimeout(()=>conf.remove(),2500);
+  }
+}
+
+
+function closePopup(){
+  document.getElementById("resultPopup").style.display = "none";
+}
+
+function revealTruth(){
+  showPopup();   // show the blast popup
+}
+
+function closePopup(){
+  document.getElementById("resultPopup").style.display = "none";
+  window.location.href = "round2.html";  // go next round
+}
+
+
+</script>
+
+</body>
+</html>

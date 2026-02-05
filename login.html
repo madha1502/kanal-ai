@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hawkins</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Cinzel', serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+
+html{
+    height:100%;
+    background: url('bg1.png') center/cover no-repeat fixed;
+}
+
+body{
+    min-height:100vh;
+    background: transparent;
+    color:white;
+    padding:60px 8%;
+    overflow:hidden;
+}
+
+/* RED FOG OVERLAY */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background: radial-gradient(circle at center,
+                rgba(255,0,0,0.25),
+                rgba(0,0,0,0.9));
+    z-index:-1;
+}
+
+/* ===== TITLE ===== */
+.page-title{
+    font-family: 'ITC Benguiat', serif;
+    outline-color: rgb(250, 0, 93);
+    font-size: 40px;
+    letter-spacing: 6px;
+    color: #0b0101;
+    text-shadow:
+        0 0 8px #090909,
+        0 0 25px #060606,
+        0 0 40px #0b0b0b;
+    position: absolute;
+    top: 4%;
+    left: 10%;
+    width: 80%;
+    text-align: center;
+    -webkit-text-stroke: 1px #ff1a1a;
+}
+
+/* ===== FORM GRID ===== */
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px 60px;
+}
+
+/* ===== LABEL ===== */
+label{
+    display:block;
+    margin-top:35px;     /* 👈 moves label DOWN */
+    margin-bottom:10px;
+    color:#939191;
+    font-size:15px;
+    letter-spacing:2px;
+}
+
+
+/* ===== INPUTS ===== */
+input, select{
+    width:100%;
+    padding:10px;
+    border-radius:50px;      /* 👈 makes it curved */
+    border:2px solid #ff1a1a;
+    background: rgba(0,0,0,0.75);
+    color:white;
+    font-size:18px;
+    outline:none;
+    transition:0.3s;
+}
+
+input:focus, select:focus{
+    box-shadow:0 0 20px red;
+}
+
+
+.start-btn{
+    position:fixed;
+    top:550px;
+    right:525px;
+    padding:10px 22px;
+    border:2px solid #0b1314;
+    color:#ff0000;
+    text-decoration:none;
+    font-weight:600;
+    letter-spacing:1px;
+    border-radius:6px;
+    z-index:10;
+    transition:0.3s;
+    box-shadow:0 0 10px #abacac;
+    filter: drop-shadow(0 0 10px #ac232e);
+    shadow:0 0 30px #080808, 0 0 30px #0d0d0d;
+    animation: floatLogo 4s ease-in-out infinite;
+}
+
+.start-btn:hover{
+     background:#560101;
+    color:#1f0104;
+    box-shadow:0 0 25px #060606;
+}
+
+#particles{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+}
+.login-btn{
+    position:fixed;
+    top:500px;
+    right:500px;
+    padding:10px 22px;
+    border:2px solid #0b1314;
+    color:#ff0000;
+    text-decoration:none;
+    font-weight:600;
+    letter-spacing:1px;
+    border-radius:6px;
+    z-index:10;
+    transition:0.3s;
+    box-shadow:0 0 10px #abacac;
+    filter: drop-shadow(0 0 10px #ac232e);
+    text-shadow:
+        0 0 8px #090909,
+        0 0 25px #060606,
+        0 0 40px #0b0b0b;
+    animation: floatLogo 4s ease-in-out infinite;
+}
+.login-btn:hover{
+    background:#560101;
+    color:#5d030c;
+    box-shadow:0 0 25px #5e0505;
+}
+</style>
+</head>
+<body>
+
+<div class="page-title">Participant Details</div>
+
+<form id="userForm">
+
+<div class="form-grid">
+
+<div>
+    <label>Name *</label>
+    <input type="text" placeholder="Enter your name" required>
+</div>
+
+<div>
+    <label>Email *</label>
+    <input type="email" placeholder="Enter your email" required>
+</div>
+
+
+<div>
+    <label>Year *</label>
+    <select required>
+        <option value="">Select Year</option>
+        <option>1st Year</option>
+        <option>2nd Year</option>
+        <option>3rd Year</option>
+        <option>4th Year</option>
+    </select>
+</div>
+
+<div>
+    <label>Department *</label>
+    <input type="text" placeholder="Enter your department" required>
+</div>
+
+<div>
+    <label>College *</label>
+    <input type="text" placeholder="Enter your college" required>
+</div>
+
+<div>
+    <label>Phone Number *</label>
+    <input type="tel" placeholder="Enter your phone number" required>
+</div>
+
+</div>
+</form>
+<a href="round1.html" class="login-btn">ENTER THE UPSIDE DOWN →</a>
+<canvas id="particles"></canvas>
+<script>
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+class Particle{
+    constructor(){
+        this.x = Math.random()*canvas.width;
+        this.y = Math.random()*canvas.height;
+        this.size = Math.random()*2+1;
+        this.speed = Math.random()*0.4+0.2;
+        this.opacity = Math.random();
+    }
+    update(){
+        this.y -= this.speed;
+        if(this.y < 0){
+            this.y = canvas.height;
+            this.x = Math.random()*canvas.width;
+        }
+    }
+    draw(){
+        ctx.fillStyle = `rgba(255,40,40,${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+        ctx.fill();
+    }
+}
+
+function init(){
+    for(let i=0;i<350;i++){
+        particles.push(new Particle());
+    }
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+window.addEventListener('resize', ()=>{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>

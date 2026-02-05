@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Round 2</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{
+  height:100%;
+  background:url('bg11.png') center/cover no-repeat fixed;
+}
+body{
+  height:100%;
+  overflow:hidden;
+  font-family:'Creepster', cursive;
+}
+
+/* ===== FOG ===== */
+.fog-wrapper{
+  position:fixed; inset:0;
+  pointer-events:none; z-index:1; overflow:hidden;
+}
+.fog{
+  position:absolute; width:220%; height:100%;
+  background:url('https://i.imgur.com/mHbScrQ.png') repeat-x;
+  background-size:cover;
+  opacity:0.22; filter:blur(10px);
+  animation:fogMove linear infinite;
+}
+.fog-a{top:5%;animation-duration:90s;}
+.fog-b{top:30%;opacity:0.18;animation-duration:120s;}
+.fog-c{top:55%;opacity:0.15;animation-duration:150s;}
+@keyframes fogMove{
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
+}
+
+/* ===== SPORE PARTICLES ===== */
+canvas{
+  position:absolute; inset:0;
+  pointer-events:none; z-index:2;
+}
+
+/* ===== UI ===== */
+.title{
+  position:absolute; top:6%; width:100%;
+  text-align:center; font-size:42px;
+  letter-spacing:6px; color:#F2E6C9;
+  text-shadow:0 0 20px #000; z-index:5;
+}
+
+.connect-portal{
+  position:absolute; top:28%; width:100%;
+  text-align:center; font-size:36px;
+  letter-spacing:6px; color:#9EC3D9;
+  text-shadow:0 0 20px #000; z-index:5;
+}
+
+.prompt-box{
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:60%; z-index:5;
+}
+.prompt-box textarea{
+  width:100%; height:120px;
+  border-radius:40px; padding:25px;
+  font-size:18px; border:2px solid #eee;
+  background:rgba(0,0,0,0.5);
+  color:white;
+}
+
+.login-btn{
+    position:fixed;
+    top:450px;
+    right:550px;
+    padding:10px 22px;
+    border:2px solid #0b1314;
+    color:#0a0a0a;
+    text-decoration:none;
+    font-weight:600;
+    letter-spacing:1px;
+    border-radius:6px;
+    z-index:10;
+    transition:0.3s;
+    box-shadow:0 0 10px #abacac;
+    filter: drop-shadow(0 0 15px #63c0dc);
+    text-shadow:
+        0 0 8px #090909,
+        0 0 25px #060606,
+        0 0 40px #0b0b0b;
+    animation: floatLogo 4s ease-in-out infinite;
+}
+.login-btn:hover{
+    background:#92cfdf;
+    color:#f4f2f2;
+    box-shadow:0 0 25px #08cddf;
+}
+
+
+.blast-bg{
+  position:absolute;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  background:radial-gradient(circle, #696767, transparent 60%);
+  animation:blast 1s ease-out forwards;
+}
+.popup-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  z-index:9999;
+}
+
+/* BLAST BACKGROUND */
+.blast-bg{
+  position:absolute;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgb(101, 7, 7), transparent 60%);
+  animation:blast 1s ease-out forwards;
+  z-index:1;
+}
+
+/* Popup */
+.popup-box{
+  position:relative;
+  z-index:2;
+  width:420px;
+  padding:30px;
+  text-align:center;
+  background:#0d0d0d;
+  color:rgb(138, 5, 5);
+  border-radius:15px;
+  box-shadow:0 0 40px rgb(205, 8, 31);
+  animation:zoomIn 0.5s ease forwards;
+}
+
+.popup-image{
+  width:120px;
+  margin-bottom:15px;
+}
+
+.popup-box button{
+  margin-top:15px;
+  padding:10px 25px;
+  border:none;
+  box-shadow:0 0 40px rgb(205, 8, 31);
+  background:rgb(95, 13, 24);
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* Blast animation */
+@keyframes blast{
+  0%{transform:scale(0.2);opacity:1;}
+  80%{transform:scale(3);opacity:0.6;}
+  100%{transform:scale(5);opacity:0;}
+}
+
+/* Popup zoom */
+@keyframes zoomIn{
+  from{transform:scale(0);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+/* Confetti pieces */
+.confetti{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:rgb(135, 7, 7);
+  animation:fall 2s linear forwards;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Fog -->
+<div class="fog-wrapper">
+  <div class="fog fog-a"></div>
+  <div class="fog fog-b"></div>
+  <div class="fog fog-c"></div>
+</div>
+
+<!-- Spores -->
+<canvas id="particles"></canvas>
+
+<!-- UI -->
+<div class="title">ROUND 2</div>
+<div class="connect-portal">Create the Track. Break the Curse</div>
+
+<div class="prompt-box">
+  <textarea placeholder="Hurry! The Upside Down is breaking..."></textarea>
+</div>
+
+<a href="#" class="login-btn" onclick="showPopup()">LETS FIND VECNA</a>
+<!-- Popup -->
+<div id="popup" class="popup-overlay">
+  <div class="popup-box">
+    <h2>Unlocked</h2>
+    <h2>El , Will Byers</h2>
+    <button onclick="goNext()">Enter Into Abyss</button>
+  </div>
+</div>
+
+<script>
+// ===== SOFT SPORES =====
+const c=document.getElementById('particles');
+const x=c.getContext('2d');
+c.width=innerWidth; c.height=innerHeight;
+
+let p=[];
+for(let i=0;i<250;i++){
+  p.push({
+    x:Math.random()*c.width,
+    y:Math.random()*c.height,
+    s:Math.random()*2+0.5,
+    v:Math.random()*0.2+0.05,
+    o:Math.random()*0.4
+  });
+}
+function draw(){
+  x.clearRect(0,0,c.width,c.height);
+  p.forEach(a=>{
+    a.y-=a.v;
+    if(a.y<0){a.y=c.height; a.x=Math.random()*c.width;}
+    x.fillStyle=`rgba(180,200,220,${a.o})`;
+    x.beginPath(); x.arc(a.x,a.y,a.s,0,6.28); x.fill();
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+
+// popup
+function showPopup(){
+  document.getElementById('popup').style.display='flex';
+}
+function goNext(){
+  window.location.href='round3.html';
+}
+
+</script>
+
+</body>
+</html>
