@@ -132,14 +132,10 @@ input:focus, select:focus{
     }
 }
 .login-btn{
-    background: rgba(71, 1, 1, 0.285);   /* subtle glow fill */
-    box-shadow:
-        0 0 35px rgba(255,0,0,0.9),
-        inset 0 0 25px rgba(255,0,0,0.4);
-    transform: scale(1.05);
+    background:transparent;
     position:fixed;
     top:500px;
-    right:500px;
+    right:470px;
     padding:10px 22px;
     border:2px solid #0b1314;
     color:#ff0000;
@@ -149,7 +145,7 @@ input:focus, select:focus{
     border-radius:6px;
     z-index:10;
     transition:0.3s;
-    
+    box-shadow:0 0 10px #032828;
     filter: drop-shadow(0 0 10px #ac232e);
     text-shadow:
         0 0 8px #090909,
@@ -160,7 +156,7 @@ input:focus, select:focus{
 .login-btn:hover{
     background:#560101;
     color:#5d030c;
-    box-shadow:0 0 25px #470606;
+    box-shadow:0 0 25px #5e0505;
 }
 </style>
 </head>
@@ -210,11 +206,8 @@ input:focus, select:focus{
 </div>
 
 </div>
-<button type="submit" class="login-btn">
-  ENTER THE UPSIDE DOWN →
-</button>
 </form>
-
+<a href="round1.html" class="login-btn">ENTER INTO THE UPSIDE DOWN</a>
 
 <canvas id="particles"></canvas>
 <script>
@@ -267,30 +260,50 @@ function animate(){
 init();
 animate();
 
-document.getElementById("registerForm").addEventListener("submit", function(e) {
-    e.preventDefault(); // ⛔ stop auto page change
-
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const year = document.getElementById("year").value;
-    const department = document.getElementById("department").value.trim();
-    const college = document.getElementById("college").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-
-    if (!name || !email || !year || !department || !college || !phone) {
-        alert("⚠️ The Upside Down rejects you!\nFill all fields to proceed.");
-        return;
-    }
-
-    // OPTIONAL phone validation
-    if (phone.length < 10) {
-        alert("📞 Phone number seems corrupted!");
-        return;
-    }
-
-    // ✅ ALL GOOD → go to next page
-    window.location.href = "round1.html";
+window.addEventListener('resize', ()=>{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 });
+document.addEventListener("DOMContentLoaded", () => {
+
+  const form = document.getElementById("registerForm");
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault(); // STOP redirect
+
+    const fields = [
+      name.value,
+      email.value,
+      year.value,
+      department.value,
+      college.value,
+      phone.value
+    ];
+
+    if(fields.some(f => f.trim() === "")){
+      alert("⚠️ THE GATE IS SEALED — FILL ALL FIELDS");
+      return;
+    }
+
+    window.location.href = "round2.html";
+  });
+
+});
+function gateAlert(text){
+  const d = document.createElement("div");
+  d.innerHTML = text;
+  d.style.cssText = `
+    position:fixed; inset:0;
+    background:rgba(0,0,0,.9);
+    color:#ff1a1a;
+    display:flex; justify-content:center; align-items:center;
+    font-size:30px; z-index:9999;
+    font-family:'Creepster',cursive;
+  `;
+  document.body.appendChild(d);
+  setTimeout(()=>d.remove(),2000);
+}
+
 </script>
 
 </body>
