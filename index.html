@@ -44,6 +44,68 @@ video{
     z-index:10;
     box-shadow:0 0 20px red;
 }
+
+@media (max-width: 767px) {
+
+    body {
+        overflow: hidden;
+    }
+
+    .skip-btn {
+        bottom: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        font-size: 14px;
+        letter-spacing: 1.5px;
+        border-width: 1.5px;
+        box-shadow: 0 0 12px red;
+    }
+
+    video {
+        object-fit: cover;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    .skip-btn {
+        bottom: 30px;
+        right: 30px;
+        padding: 12px 26px;
+        font-size: 15px;
+        letter-spacing: 2px;
+        box-shadow: 0 0 16px red;
+    }
+
+    video {
+        object-fit: cover;
+    }
+}
+
+
+@media (min-width: 1025px) {
+
+    .skip-btn {
+        bottom: 40px;
+        right: 40px;
+        padding: 14px 32px;
+        font-size: 16px;
+        letter-spacing: 2.5px;
+        box-shadow: 0 0 22px red;
+    }
+
+    video {
+        object-fit: cover;
+    }
+}
+
+@media (hover: none) {
+    .skip-btn:hover {
+        background: transparent;
+    }
+}
+
+
 </style>
 </head>
 
@@ -71,4 +133,3 @@ function skipIntro(){
 
 </body>
 </html>
-
