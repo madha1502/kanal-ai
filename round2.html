@@ -182,6 +182,123 @@ canvas{
   background:rgb(135, 7, 7);
   animation:fall 2s linear forwards;
 }
+
+@media (max-width: 767px){
+
+  body{
+    overflow:hidden;
+  }
+
+  /* TITLE */
+  .title{
+    font-size:26px;
+    letter-spacing:3px;
+    top:4%;
+  }
+
+  .connect-portal{
+    top:14%;
+    font-size:20px;
+    letter-spacing:3px;
+    padding:0 10px;
+  }
+
+  /* PROMPT */
+  .prompt-box{
+    width:90%;
+    top:52%;
+  }
+
+  .prompt-box textarea{
+    height:90px;
+    font-size:14px;
+    padding:16px;
+    border-radius:25px;
+  }
+
+  /* BUTTON */
+  .login-btn{
+    top:auto;
+    right:50%;
+    bottom:18%;
+    transform:translateX(50%);
+    font-size:14px;
+    padding:8px 18px;
+  }
+
+  /* POPUP */
+  .popup-box{
+    width:85%;
+    padding:20px;
+  }
+
+  /* FOG OPTIMIZATION */
+  .fog{
+    opacity:0.15;
+    filter:blur(6px);
+  }
+}
+
+@media (min-width:768px) and (max-width:1024px){
+
+  .title{
+    font-size:34px;
+    letter-spacing:5px;
+    top:5%;
+  }
+
+  .connect-portal{
+    top:18%;
+    font-size:26px;
+    letter-spacing:4px;
+  }
+
+  .prompt-box{
+    width:75%;
+    top:55%;
+  }
+
+  .prompt-box textarea{
+    height:110px;
+    font-size:16px;
+  }
+
+  .login-btn{
+    top:auto;
+    right:50%;
+    bottom:16%;
+    transform:translateX(50%);
+    font-size:15px;
+    padding:10px 22px;
+  }
+
+  .popup-box{
+    width:380px;
+  }
+}
+
+@media (min-width:1025px){
+
+  .title{
+    font-size:42px;
+  }
+
+  .connect-portal{
+    font-size:36px;
+  }
+
+  .prompt-box{
+    width:60%;
+  }
+
+  .login-btn{
+    top:450px;
+    right:550px;
+    transform:none;
+  }
+}
+
+
 </style>
 </head>
 
