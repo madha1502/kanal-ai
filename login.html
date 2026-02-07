@@ -158,6 +158,127 @@ input:focus, select:focus{
     color:#5d030c;
     box-shadow:0 0 25px #5e0505;
 }
+
+@media (max-width: 767px){
+
+  body{
+    padding:90px 5%;
+    overflow-y:auto;
+  }
+
+  /* TITLE */
+  .page-title{
+    font-size:22px;
+    letter-spacing:2px;
+    top:3%;
+    left:5%;
+    width:90%;
+  }
+
+  /* FORM GRID */
+  .form-grid{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  /* EACH FIELD ROW */
+  .form-grid > div{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  /* LABEL INLINE */
+  label{
+    margin:0;
+    font-size:12px;
+    letter-spacing:1px;
+    white-space:nowrap;
+    min-width:95px;   /* keeps labels aligned */
+  }
+
+  /* INPUT INLINE */
+  input, select{
+    flex:1;
+    font-size:14px;
+    padding:8px 12px;
+  }
+
+  /* BUTTON — BELOW ALL INPUTS */
+  .login-btn{
+    position:static;          /* 🔥 IMPORTANT */
+    display:block;
+    margin:30px auto 0;
+    transform:none;
+    font-size:14px;
+    padding:10px 20px;
+    text-align:center;
+  }
+
+  /* PARTICLES OPTIMIZATION */
+  #particles{
+    opacity:0.7;
+  }
+}
+
+
+@media (min-width:768px) and (max-width:1024px){
+
+  body{
+    padding:120px 8%;
+  }
+
+  .page-title{
+    font-size:32px;
+    letter-spacing:5px;
+    top:4%;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  label{
+    font-size:14px;
+  }
+
+  input, select{
+    font-size:16px;
+  }
+
+  .login-btn{
+    top:auto;
+    right:50%;
+    bottom:6%;
+    transform:translateX(50%);
+    font-size:15px;
+    padding:10px 22px;
+  }
+}
+
+@media (min-width:1025px){
+
+  body{
+    padding:60px 8%;
+  }
+
+  .page-title{
+    font-size:40px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .login-btn{
+    top:500px;
+    right:470px;
+    transform:none;
+  }
+}
+
+
 </style>
 </head>
 <body>
