@@ -285,6 +285,155 @@ canvas{
     filter: drop-shadow(0 0 10px #9a262d);
     animation: zigzag1 7s ease-in infinite;
 }
+
+@media (max-width: 767px){
+
+  body{
+    overflow:hidden;
+  }
+
+  /* TITLE */
+  .title{
+    font-size:24px;
+    letter-spacing:3px;
+    top:4%;
+    left:5%;
+    width:90%;
+  }
+
+  .line{
+    width:220px;
+  }
+
+  /* TAGLINE */
+  .tagline{
+    bottom:78%;
+    font-size:18px;
+    letter-spacing:2px;
+  }
+
+  /* PROMPT */
+  .prompt-box{
+    width:90%;
+    top:55%;
+  }
+
+  .prompt-label{
+    font-size:18px;
+    letter-spacing:3px;
+    -webkit-text-stroke:1.5px #ff1a1a;
+  }
+
+  .prompt-box textarea{
+    height:90px;
+    font-size:14px;
+    padding:16px;
+    border-radius:25px;
+  }
+
+  /* LOGIN BUTTON */
+  .login-btn{
+    top:auto;
+    right:50%;
+    bottom:20%;
+    transform:translateX(50%);
+    font-size:14px;
+    padding:8px 18px;
+  }
+
+  /* RESULT IMAGE */
+  #result img{
+    width:220px;
+  }
+
+  /* POPUP */
+  .popup-box{
+    width:85%;
+    padding:20px;
+  }
+
+  /* LOGOS */
+  .college-logo,
+  .college-logo1{
+    max-width:140px;
+    bottom:10px;
+  }
+}
+
+
+@media (min-width:768px) and (max-width:1024px){
+
+  .title{
+    font-size:32px;
+    letter-spacing:5px;
+    top:5%;
+  }
+
+  .line{
+    width:350px;
+  }
+
+  .tagline{
+    bottom:65%;
+    font-size:22px;
+  }
+
+  .prompt-box{
+    width:80%;
+    top:55%;
+  }
+
+  .prompt-label{
+    font-size:22px;
+    letter-spacing:4px;
+  }
+
+  .prompt-box textarea{
+    height:110px;
+    font-size:16px;
+  }
+
+  .login-btn{
+    top:auto;
+    right:50%;
+    bottom:18%;
+    transform:translateX(50%);
+    font-size:15px;
+    padding:10px 22px;
+  }
+
+  #result img{
+    width:300px;
+  }
+
+  .college-logo,
+  .college-logo1{
+    max-width:180px;
+  }
+}
+
+@media (min-width:1025px){
+
+  .title{
+    font-size:40px;
+  }
+
+  .prompt-box{
+    width:60%;
+  }
+
+  .login-btn{
+    top:450px;
+    right:525px;
+    transform:none;
+  }
+
+  #result img{
+    width:380px;
+  }
+}
+
+
 </style>
 </head>
 
