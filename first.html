@@ -124,23 +124,124 @@ canvas{
     text-shadow:0 0 15px #070707;
 }
 
+@media (max-width: 767px){
+
+  body{
+    overflow-y:auto;
+    padding-bottom:60px;
+  }
+
+  .title{
+    font-size:22px;
+    letter-spacing:3px;
+    top:4%;
+  }
+
+  .line{
+    width:220px;
+  }
+
+  .contnt{
+    position:relative;
+    top:32%;
+  }
+
+  .center-logo{
+    width:220px;
+  }
+
+  .tagline{
+    position:relative;
+    margin-top:25px;
+    font-size:14px;
+    letter-spacing:2px;
+  }
+
+  /* 🔥 BUTTON FIX */
+  .login-btn{
+    position:relative;
+    display:block;
+    margin:35px auto 0;
+    top:auto;
+    right:auto;
+    transform:none;
+    font-size:14px;
+    padding:10px 20px;
+    text-align:center;
+  }
+}
+
+@media (min-width:768px) and (max-width:1024px){
+
+  body{
+    overflow-y:auto;
+    padding-bottom:80px;
+  }
+
+  .title{
+    font-size:30px;
+    letter-spacing:5px;
+  }
+
+  .line{
+    width:500px;
+  }
+
+  .contnt{
+    position:relative;
+    top:34%;
+  }
+
+  .center-logo{
+    width:300px;
+  }
+
+  .tagline{
+    position:relative;
+    margin-top:35px;
+    font-size:18px;
+  }
+
+  /* 🔥 BUTTON FIX */
+  .login-btn{
+    position:relative;
+    display:block;
+    margin:40px auto 0;
+    top:auto;
+    right:auto;
+    transform:none;
+    font-size:15px;
+    padding:12px 26px;
+    text-align:center;
+  }
+}
+
+
+
+
 </style>
 </head>
 
 <body>
 
+<canvas id="particles"></canvas>
+
+<div class="logo">
+  <div class="line"></div>
+  <div class="title">DEPARTMENT OF ARTIFICIAL INTELLIGENCE AND DATA SCIENCE</div>
+  <div class="line"></div>
+</div>
+
+<div class="contnt">
+  <img src="logo.png" class="center-logo">
+</div>
+
+<div class="tagline">
+  "Where Code Meets Creativity and Intelligence Meets Design"
+</div>
+
 <a href="login.html" class="login-btn">PROCEED TO HAWKINS</a>
 
-<canvas id="particles"></canvas>
-<div class="logo">
-    <div class="line"></div>
-    <div class="title">DEPARTMENT OF ARTIFICIAL INTELLIGENCE AND DATA SCIENCE</div>
-    <div class="line"></div>
-</div>
-<div class="contnt">
-    <img src="logo.png" class="center-logo" alt="Kanal Logo">
-</div>
-<div class="tagline">"Where Code Meets Creativity and Intelligence Meets Design"</div>
 <script>
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
